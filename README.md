@@ -1,4 +1,4 @@
-# Portfólio de aprendizagem de PHP Learning Portfolio
+# Portfólio de aprendizagem de PHP
 
 Este repositório é uma coleção de notas e exemplos de código que documentam meu aprendizado de PHP. Ele serve como uma referência pessoal e um portfólio para demonstrar meus conhecimentos.
 
