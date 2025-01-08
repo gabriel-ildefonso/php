@@ -31,4 +31,5 @@ PHP pode ser usado para:
 // 01-introducao/exemplos/exercicio1.php
 <?php
 echo "Meu Nome";
+// Será impresso a expressão 'Meu Nome'
 ```
