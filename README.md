@@ -13,7 +13,7 @@ Cada seção contém arquivos `index.md` com a teoria e um diretório `exemplos/
 ## Como Usar
 
 1. Clone o repositório:
-  git clone [https://github.com/seuusuario/php-learning-portfolio.git](https://github.com/gabriel-ildefonso/php.git)
+  git clone https://github.com/gabriel-ildefonso/php.git
 2. Navegue até a seção desejada e explore os arquivos `index.md` e exemplos de código.
 3. Execute os exemplos localmente utilizando um servidor PHP ou XAMPP.
 
