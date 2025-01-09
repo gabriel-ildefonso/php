@@ -107,13 +107,13 @@ Exemplo: 5 ** 2, desta maneira teremos o resultado de 5 elevado a 2;
 ```
 
 ## Operadores de comparação
-- As operações com operadores de comparação resultarão em true or false;
-Igualdade: '==', compara o valor de dois dados;         
-Idêntico a: '===', compara o valor e o tipo dos dados, retornando 'true' quando as duas características forem verdadeiras;
-Diferença: '!=';
-Não idêntico a: '!==';
-Maior e maior ou igual a: '>' e '>=';
-Menor e menor ou igual a: '<' e '<=';
+As operações com operadores de comparação resultarão em true or false;
+- Igualdade: '==', compara o valor de dois dados;         
+- Idêntico a: '===', compara o valor e o tipo dos dados, retornando 'true' quando as duas características forem verdadeiras;
+- Diferença: '!=';
+- Não idêntico a: '!==';
+- Maior e maior ou igual a: '>' e '>=';
+- Menor e menor ou igual a: '<' e '<=';
 
 
 
