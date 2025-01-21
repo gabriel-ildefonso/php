@@ -110,21 +110,123 @@ Exemplo: 5 ** 2, desta maneira teremos o resultado de 5 elevado a 2;
 As operações com operadores de comparação resultarão em true or false;
 - Igualdade: '==', compara o valor de dois dados;         
 - Idêntico a: '===', compara o valor e o tipo dos dados, retornando 'true' quando as duas características forem verdadeiras;
-- Diferença: '!=';
-- Não idêntico a: '!==';
+- Diferença: '!=', verifica se um valor é diferente do outro;
+- Não idêntico a: '!==', verifica se um valor é diferente do outro, comparando também o tipo do dado;
 - Maior e maior ou igual a: '>' e '>=';
 - Menor e menor ou igual a: '<' e '<=';
 
+```php
+<?php
+  $x = 12;
+  $y = '12'; 
+  $z = 'teste';
 
+  $x == $y;    //true
+  $x === $y;   //false
+  $x != $y;    //false
+  $x !== $y;   //true
+?>
+```
 
+## Operadores lógicos
+Com operadores lógicos podemos realizar operações de lógica booleana, encadeando várias comparações.
+- Operador AND (e): &&, retorna true quando as duas prosposições forem verdadeiras;
+- Operador OR (ou): ||, retorna true quando pelo menos uma das porposições for verdadeira;
+- Operador NOT (negação): !, inverte o resultado (ou valor) de uma proposição. Torna true o que for falso, e false o que for verdadeiro. A negação de uma variável pode ser sinalizada com o sinal "'", da seguinte maneira: 
+ a negação de x será 'x
+;
 
+### Tabela verdade dos operadores lógicos
+Com a tabela verdade temos um resumo dos operadores lógicos:
 
+<b>Operador AND</b>
+| A    | B    | A AND B |
+|------|------|---------|
+| true | true | true    |
+| true | false| false   |
+| false| true | false   |
+| false| false| false   |
 
+<b>Operador OR</b>
 
+| A    | B    | A OR B  |
+|------|------|---------|
+| true | true | true    |
+| true | false| true    |
+| false| true | true    |
+| false| false| false   |
 
+<b>Operador NOT</b>
 
+| A    | NOT A |
+|------|-------|
+| true | false |
+| false| true  |
 
+```php
+<?php
+  //Operador AND
+  (10 > 5 && 3 > 2)        //true
+  (10 > 5 && 0)            //false, o 0 é false
+  ('teste' > 1 && 9 >= 8)  //false, não se converte string em number para comparações;
 
+  Operador OR
+  (10 > 5 || 0)            //true, basta que uma das proposições seja verdadeira;
 
+  Operador NOT
+  !(10 > 5)                //false
+?>
+```
 
+## Operadores de conversão (cast)
+- Com os operadores de conversão podemos forçar uma variável ser de um determinado tipo;
+- Nem todos são realmente úteis na prática, os mais utilizados são para conversão de string em número;
+- São operadores: int, bool, float, string, array, object e unset;
+- Exemplo: $a = (int) '5.34243'.  dado string é convertido para number.
 
+```php
+<?php
+  $a = (int) '12';
+  echo $a + 10;                //imprime 22, pois a string '12' foi convertida para número, permitindo a soma
+  echo $a === 12;              //true
+  echo $b (int) 'teste';       //imprime 0, não é possível converter string para inteiro
+  echo $c = (int) 12.9;        //imprime 12, a parte decimal é ignorada
+  echo $d = (int) true;        //imprime 1
+  echo $e = (int) [1, 2, 3]    //imprime 1, tods os arrays, quando convertidos em inteiro, retornam 1.
+?>
+```
+
+## Operadores de atribuição
+- Com estes operadores podemos atribuir valor a uma variável;
+- O mais conhecido é o '=', porém este possui algumas variações;
+- Operadores de atribuição: =, +=, -=, /=, *=, %=. Cada um destes fará uma operação antes da atribuição;
+
+```php
+<?php
+  $a = 0;
+  $a += 10;    //$a = $a + 10
+
+  $b = 0;
+  $b -=5;      //$b = $b - 5
+
+  $c = 5;
+  $c *=2;      //$c = $c * 2;
+
+  $d = 10;
+  $d /= 2;     //$d = %d / 2;
+
+  $e = 5;
+  $e %= 2;     //$e = $e % 2;
+
+?>
+```
+
+## Operador ternário
+- Este operador constitui uma estrutura de condição resumida;
+- Na maioria dos casos vamos optar por if/else, porém em situações simples podemos utilizar o ternário;
+- Exemplo: 5 > 2 ? echo "5 é maior que dois" : echo "5 é menor que 2";
+- A primeira interrogação vem antes da comparação;
+- E o : é utilizado para uma segunda situação, caso a primeira seja falsa;
+
+<b>Estrutura do operador ternário:</b>
+(condição) ? 'retorno se verdadeiro' : 'retorno se falso'
