@@ -222,7 +222,7 @@ Com a tabela verdade temos um resumo dos operadores lógicos:
 ```
 
 ## Operador ternário
-- Este operador constitui uma estrutura de condição resumida;
+- Este operador constitui uma estrutura de condição resumida, é um if de uma linha;
 - Na maioria dos casos vamos optar por if/else, porém em situações simples podemos utilizar o ternário;
 - Exemplo: 5 > 2 ? echo "5 é maior que dois" : echo "5 é menor que 2";
 - A primeira interrogação vem antes da comparação;
