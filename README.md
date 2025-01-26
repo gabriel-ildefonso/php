@@ -8,8 +8,6 @@ Este repositório é uma coleção de notas e exemplos de código que documentam
 - **02-conceitos-basicos/**: Conceitos básicos, incluindo case sensitivity, instruções de código, espaços em branco e comentários.
 - **03-tipos-de-dados/**: Tipos de dados em PHP, como inteiros, strings e arrays.
 
-Cada seção contém arquivos `index.md` com a teoria e um diretório `exemplos/` com exemplos de código.
-
 ## Como Usar
 
 1. Clone o repositório:
