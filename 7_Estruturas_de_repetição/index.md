@@ -161,8 +161,37 @@ for ($i = 0; $i < 10; $i++) {
 8
 9
 */
+```
+### Loop infinito
+- loop infinito é um erro que pode ser ocasionado quando uma estrutura de repetição não tem uma condição de término possível;
+- Isso vai fazer o software travar, o que pode interromper a execução de todo um sistema;
+- Em um loop infinito, a mesma instrução será executada até que o usuário force a sua parada;
+Exemplo:
+```php
+<?php
+while(5 < 10){
+echo "Este é um loop infinito"
 
+# Como não há incremento, a mensagem será impressa indefinidamente
+```
 
+## Foreach
+- foreach também é uma estrutura de repetição, porém ela é orientada a arrays;
+- Ela deve ser utilizada para que a estrutura repita (percorra) em todos os elementos do array;
+Exemplo:
+```php
+<?php
+$nomes = ['Gabriel', 'Vinícius', 'Olavo', 'Pedro'];
+
+foreach($nomes as nome){
+echo "O nome do índice atual é $nome <br>;
+
+*/ Retorno:
+O nome do índice atual é Gabriel
+O nome do índice atual é Vinícius
+O nome do índice atual é Olavo
+O nome do índice atual é Pedro
+/*
 
 
 
