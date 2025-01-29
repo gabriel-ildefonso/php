@@ -115,7 +115,7 @@ No arquivo index.php
   <li><?= $produto;?></li>
   <?php endforeach; ?> #é necessário encerrar o foreach quando este for inserido em um trecho de html
 </ul>
-
+```
 
 
 
