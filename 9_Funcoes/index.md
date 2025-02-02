@@ -157,28 +157,12 @@ echo soma(2, 4);
     print_r($arr);
     echo "<br>";
     var_dump($arr);
-  ?>
+
   /*
   Resposta do print_r: Array ( [0] => teste [1] => 123 [2] => 123.456 [3] => 1 [4] => Array ( [0] => 1 [1] => 2 [2] => 3 ) )
   Resposta do var_dump: array(5) { [0]=> string(5) "teste" [1]=> int(123) [2]=> float(123.456) [3]=> bool(true) [4]=> array(3) { [0]=> int(1) [1]=> int(2) [2]=> int(3) } }
 
   Percebe-se que o var_dump fornece mais informações, como o tamanho do array, os tipos de dados de cada índice do array, e ainda separa o array interno para facilitar a visualização.
   */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  ?>
+```
