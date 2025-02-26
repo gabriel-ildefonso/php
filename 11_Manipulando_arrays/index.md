@@ -30,9 +30,54 @@
 - Para acessar este tipo de array também utilizamos índices, acessando o externo e depois os internos;
 -  Ex: $arr[1][0] => Primeiro elemento do segundo array;
 
+## Criando variáveis a partir de arrays
+- Para isso vamos utilizar a função list;
+Ex: list($nome, $idade, $profissao) = $pessoa;
+```php
+<?php
+$pessoa = ["Gabriel", 31, "Programador", "verde" ];
 
+list($nome,$idade, $profissao, $cor") = $pessoa;
+echo $nome;
+echo $idade;
+echo $profissao;
+echo $cor;
+```
 
+## Resgatando elementos de um array
+- Com a função array_slice podemos resgatar uma faixa de elementos deum array;
+- Passamos 3 parâmetros: o array, índice inicial e quantos elementos queremos resgatar a partir do índice;
 
+```php
+< ?php
+$arr = [2, 4, 6, 8, 10, 12, 14, 16, 18];
+
+$slicel = array_slice($arr, 1, 3);
+print_r($slice);        //imprimirá 4, 6, 8
+echo "<br>";
+```
+
+## Dividindo arrays
+- Podemos dividir um array grande em diversos arrays de número de elementos iguais, utilizando a função array_chunk;
+- Passamos o array como argumento e também o número de elementos que cada array deve ter;
+
+## Chaves e valores de um array
+- Com a função array_keys recebemos um array apenas com as chaves de um array;
+- Com a função array values recebemos um array com apenas os valores de um array;
+
+```php
+< ?php
+$carro = [
+  'marca' => 'BMW'
+  'motor' => '2.4'
+  'teto_solar' => 'true'
+  'cambio' => 'manual'
+  'portas' => '4'
+];
+
+ $chaves = array_keys($carro)
+```
+## Verificando se um valor existe
 
 
 
