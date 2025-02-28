@@ -80,29 +80,27 @@
 <?php
   class Animal{
     public $nome;
-	
-		function escolherNome($nome) {
-			$this->nome = $nome;
-		}
+
+    function escolherNome($nome) {
+      $this->nome = $nome;
+    }
 		
-		function latir(){
-			return "woof woof \n";
-		}
+    function latir(){
+      return "woof woof \n";
+    }
 		
-		function latirForte(){
-			return strtoupper($this->latir());
-		}
-		
-	}
-	$joey = new Animal;
+    function latirForte(){
+      return strtoupper($this->latir());
+    }
+  }
+
+  $joey = new Animal;
+  echo "O nome do animal é: $Joey->nome \n";
 	
-	echo "O nome do animal é: $Joey->nome \n";
+  $joey->escolherNome("Joey");
+  echo "O nome do animal é: $joey->nome \n";
 	
-	$joey->escolherNome("Joey");
-	
-	echo "O nome do animal é: $joey->nome \n";
-	
-	echo $joey->latir();
+  echo $joey->latir();
   echo $joey->latirForte();
 ?>
 
@@ -112,6 +110,7 @@ O nome do animal é: Joey
 woof woof 
 WOOF WOOF
 ```
+
 ## Constantes em classes
 - constantes são parecidas com variáveis, salvam valores em memória, porém o seu valor não pode ser alterado;
 - Exemplo de sintaxe: public const CHAVE API = "AS0793mJJs39";
@@ -128,45 +127,46 @@ Temos três formatos de visibilidade: public, protected e private;
 - A palavra reservada é extends;
 ```php
 <?php
-	class Humano{
-		public $idade = 31;
+  class Humano{
+    public $idade = 31;
 		
-		public function falar(){
-			echo "Olá mundo!\n";
-		}
-		private function gritar(){
-			echo "OLÁ MUNDO!\n";
-		}
+    public function falar(){
+      echo "Olá mundo!\n";
+    }
+    private function gritar(){
+      echo "OLÁ MUNDO!\n";
+    }
 		
-		public function getGritar(){
-			self::gritar(); 	//'self::'' === '$this->'
-		}
-	}
+    public function getGritar(){
+      self::gritar(); 	//'self::'' === '$this->'
+    }
+  }
 	
-	$gabriel = new Humano;
-	$gabriel->falar();
+  $gabriel = new Humano;
+  $gabriel->falar();
 	
-	class Programador extends Humano{
-	}
+  class Programador extends Humano{
+  }
 	
-	$ze = new Programador;
-	$ze->falar();
-	$ze->getGritar();
+  $ze = new Programador;
+  $ze->falar();
+  $ze->getGritar();
 ?>
-``` 
+```
+ 
 ## Ancestralidade
 - Para checar a ancestralidade de uma classe utilizamos o operador instanceof;
 - Podemos inserir essa operação em um if, pois vai retornar um booleano;
 ```php
 <?php
-	class Humano{	
-	}
+  class Humano{	
+  }
 	
-	$gabriel = new Humano;
+  $gabriel = new Humano;
 	
-	if ($gabriel instanceof Humano){
-		echo "Gabriel é humano";
-	}
+  if ($gabriel instanceof Humano){
+    echo "Gabriel é humano";
+  }
 ?>
 ```
 
@@ -178,15 +178,15 @@ Temos três formatos de visibilidade: public, protected e private;
 
 ```php
 <?php
-	interface Caracteristicas{
-		public function falar();
-	}
+  interface Caracteristicas{
+    public function falar();
+  }
 	
-	class Humano implements Caracteristicas{
-		public function falar(){
-			 echo "Olá mundo! \n";
-		}
-	}
+  class Humano implements Caracteristicas{
+    public function falar(){
+      echo "Olá mundo! \n";
+    }
+  }
 ?>
 ```
 ## Traits
@@ -196,24 +196,24 @@ Temos três formatos de visibilidade: public, protected e private;
 - É possível usar várias traits em uma mesma classe;
 ```php
 <?php
-	trait Objeto{
-		public function teste() {
-			echo "Testando trait Objeto \n";
-		}
-	}
-	trait Testando{
-		public function traitTeste(){
-			echo "Testando trait Testando";
-		}
-	}
-	class Central {
-		use Objeto;
-		use Testando;
-	}
+  trait Objeto{
+    public function teste() {
+      echo "Testando trait Objeto \n";
+    }
+  }
+  trait Testando{
+    public function traitTeste(){
+      echo "Testando trait Testando";
+    }
+  }
+  class Central {
+    use Objeto;
+    use Testando;
+  }
 	
-	$x = new Central;
-	$x->teste();
-	$x->traitTeste();
+  $x = new Central;
+  $x->teste();
+  $x->traitTeste();
 ?>
 
 Retorno:
@@ -222,14 +222,82 @@ Testando trait Testando
 ```
 
 ## Classes abstratas
-classes abstratas não podem ser instanciadas;
-Podemos ter métodos abstratos, que devem ser implementados
-obrigatoriamente se uma classe herdar a abstrata;
-A palavra reservada tanto para classes como para métodos é abstract;
-Exemplo:
-abstract class ClasseAbstrata { }
+- Classes abstratas não podem ser instanciadas;
+- Podemos ter métodos abstratos, que devem ser implementados obrigatoriamente se uma classe herdar a abstrata;
+- A ideia é executar métodos de uma classe sem que ela seja instanciada;
+- A palavra reservada tanto para classes como para métodos é abstract;
+```php
+<?php
+  abstract class Teste {
+    public static function testandoClasse() {
+      echo "Este médtodo é de uma classe abstrata \n";
+    }
+  }
+	
+  //$t = new Teste; Se instanciada, o programa retorna um erro fatal
+	
+  Teste::testandoClasse(); 
+?>
 
+Retorno:
+Este médtodo é de uma classe abstrata
+```
 
+## Construtores
+- Pelos construtores podemos inicializar objetos com valores de propriedades únicos para cada objeto;
+- Passamos como argumentos os valores das propriedades;
+```php
+<?php
+
+  class Car {
+    public $portas;
+    public $cor;
+    public $marca;
+
+    function __construct($portas, $cor, $marca, $modelo){
+      $this->portas = $portas;
+      $this->cor = $cor;
+      $this->marca = $marca;
+      $this->modelo = $modelo;
+    }
+  }
+	
+  $ka = new Car(4, "Preta", "Ford", "Ka");
+  echo "O carro $ka->modelo é da marca $ka->marca, é de cor $ka->cor e possui $ka->portas portas";
+?>
+
+Retorno:
+O carro Ka é da marca Ford, é de cor Preta e possui 4 portas
+```
+
+## Classes anônimas
+- classes anônimas são criadas em uma variável e não possuem nome;
+- Elas funcionam como qualquer outra classe, mas não podem ser instanciadas;
+- Precisamos finalizá-la com ";";
+
+```php
+<?php
+  $pessoa = new class(){
+    public $nome = "Gabriel";
+  };		//Perceba o ";", encerrando a declaração da classe que funciona como variável
+
+  echo $pessoa->nome
+?>
+Retorno:
+Gabriel
+```
+
+## Verificando classes
+Em PHP temos alguns métodos que nos ajudam a entender as classes;
+- class_exists():verifica se uma classe existe;
+- get_class_methods(): verifica os métodos de uma classe;
+- get_class_vars(): mapeamento das propriedades de uma classe;
+
+## Verificando objetos
+Em PHP temos alguns métodos que nos ajudam a entender melhor os objetos:
+- is_object(): verifica se uma variável é um objeto;
+- get_class(): verifica a classe de um objeto;
+- method_exists(): verifica se um método existe em um objeto;
 
 
 
