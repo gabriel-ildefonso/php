@@ -71,10 +71,163 @@
 ?>
 ```
 
+## Palavra $this
+- $this se refere a instância atual do objeto;
+- Podendo assim alterar um valor de uma propriedade do objeto com: $this->proriedade = "x";
+- Também é possível invocar um método do objeto com this também;
 
+```php
+<?php
+  class Animal{
+    public $nome;
+	
+		function escolherNome($nome) {
+			$this->nome = $nome;
+		}
+		
+		function latir(){
+			return "woof woof \n";
+		}
+		
+		function latirForte(){
+			return strtoupper($this->latir());
+		}
+		
+	}
+	$joey = new Animal;
+	
+	echo "O nome do animal é: $Joey->nome \n";
+	
+	$joey->escolherNome("Joey");
+	
+	echo "O nome do animal é: $joey->nome \n";
+	
+	echo $joey->latir();
+  echo $joey->latirForte();
+?>
 
+//Retorno:
+O nome do animal é:  
+O nome do animal é: Joey 
+woof woof 
+WOOF WOOF
+```
+## Constantes em classes
+- constantes são parecidas com variáveis, salvam valores em memória, porém o seu valor não pode ser alterado;
+- Exemplo de sintaxe: public const CHAVE API = "AS0793mJJs39";
+- É uma prática manter o nome de constantes com letras maiúsculas;
 
+## Visibilidade
+Temos três formatos de visibilidade: public, protected e private;
+- <b>public:</b> A propriedade ou método pode ser acessada de qualquer forma;
+- <b>protected:</b> A propriedade ou método pode ser acessada apenas pela classe de origem ou as que recebem a mesma de herança;
+- <b>private:</b> a propriedade ou método pode ser acessada apenas pela classe que foi criada;
 
+## Herança
+- A herança é o recurso da OOP que dá a possibilidade de uma classe herdar métodos e propriedades de outra;
+- A palavra reservada é extends;
+```php
+<?php
+	class Humano{
+		public $idade = 31;
+		
+		public function falar(){
+			echo "Olá mundo!\n";
+		}
+		private function gritar(){
+			echo "OLÁ MUNDO!\n";
+		}
+		
+		public function getGritar(){
+			self::gritar(); 	//'self::'' === '$this->'
+		}
+	}
+	
+	$gabriel = new Humano;
+	$gabriel->falar();
+	
+	class Programador extends Humano{
+	}
+	
+	$ze = new Programador;
+	$ze->falar();
+	$ze->getGritar();
+?>
+``` 
+## Ancestralidade
+- Para checar a ancestralidade de uma classe utilizamos o operador instanceof;
+- Podemos inserir essa operação em um if, pois vai retornar um booleano;
+```php
+<?php
+	class Humano{	
+	}
+	
+	$gabriel = new Humano;
+	
+	if ($gabriel instanceof Humano){
+		echo "Gabriel é humano";
+	}
+?>
+```
+
+## Interfaces
+- As interfaces criam um modelo de definição de uma classe;
+- Então toda classe que implementar uma interface, deverá implementar também suas propriedades e métodos, obrigatoriamente;
+- A palavra reservada é implements;
+- É muito útil na padronização de classes, retornando erro quando uma propriedade ou método não for implementada.
+
+```php
+<?php
+	interface Caracteristicas{
+		public function falar();
+	}
+	
+	class Humano implements Caracteristicas{
+		public function falar(){
+			 echo "Olá mundo! \n";
+		}
+	}
+?>
+```
+## Traits
+- As traits permitem o reuso do código sem hierarquia de classes, ou seja, sem herança;
+- Podemos assim utilizar os métodos da classe que foi feita a trait;
+- Utilizamos a palavra reservada use;
+- É possível usar várias traits em uma mesma classe;
+```php
+<?php
+	trait Objeto{
+		public function teste() {
+			echo "Testando trait Objeto \n";
+		}
+	}
+	trait Testando{
+		public function traitTeste(){
+			echo "Testando trait Testando";
+		}
+	}
+	class Central {
+		use Objeto;
+		use Testando;
+	}
+	
+	$x = new Central;
+	$x->teste();
+	$x->traitTeste();
+?>
+
+Retorno:
+Testando trait Objeto 
+Testando trait Testando
+```
+
+## Classes abstratas
+classes abstratas não podem ser instanciadas;
+Podemos ter métodos abstratos, que devem ser implementados
+obrigatoriamente se uma classe herdar a abstrata;
+A palavra reservada tanto para classes como para métodos é abstract;
+Exemplo:
+abstract class ClasseAbstrata { }
 
 
 
