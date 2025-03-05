@@ -13,6 +13,9 @@
       <input type="text" name="nome" placeholder="Digite seu nome">
     </div>
     <div>
+      <input type="text" name="idade" placeholder="Digite sua idade">
+    </div>
+    <div>
       <input type="submit" value="Enviar">
     </div>
 </body>
