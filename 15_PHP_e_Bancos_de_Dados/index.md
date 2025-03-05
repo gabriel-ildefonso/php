@@ -162,14 +162,335 @@ FLUSH PRIVILEGES;
 ```php
 $conn = new mysqli("host", "user", "pass", "db");
 ```
+- Acompanhe o desenvolvimento na pasta 'mysqli_connection'
 
+## Erro na conexão
+- Para verificar se houve algum erro na conexão podemos utilizar a propriedade connect_errno;
+- E para verificar o erro podemos utilizar o método connect_error()
+- Podemos inserir a checagem em um if e mostrar a mensagem de erro com um echo, por exemplo;
+- Acompanhe o desenvolvimento na pasta 'erro_connection'
 
+## Excutando uma query
+- Para executar uma query vamos usar o método query;
+- Ele deve ser utilizado a partir do objeto que fez a conexão;
+- Vamos receber um determinado retorno como resultado, que podem ser os dados, caso seja um SELECT, por exemplo;
+- É importante ao fim de todas as queries fechar a conexão, com o método close;
+- Conexões abertas gastam recursos do servidor e prejudicam a aplicação;
 
+```php
+<?php
+$host = "localhost";
+$user = "root";
+$pass = "2wedf";
+$db = "cursophp";
 
+$conn = new mysqli($host, $user, $pass, $db);
 
+$sql = "SELECT * FROM itens";
 
+$result = $conn->query($sql);
+print_r($result)
+$conn->close()
+```
 
+## Criando e deletando tabelas com mysqli
+- Para criar e deletar tabelas vamos utilizar as mesmas queries de SQL puro, porém com o auxílio do método query;
+- DROP TABLE para deletar tabelas;
+- CREATE TABLE para criar tabelas;
+- Lembre-se de fechar a conexão!
+```php
+<?php
+$host = "localhost";
+$user = "root";
+$pass = "2wedf";
+$db = "cursophp";
 
+$conn = new mysqli($host, $user, $pass, $db);
+
+$sql = "CREATE TABLE teste (nome VARCHAR(100), sobrenome VARCHAR(100))";
+
+$conn->query($sql);
+$conn->close()
+```
+
+## Inserindo dados
+- Para inserir dados com o mysqli vamos utilizar a mesma query do SQL puro e novamente o método query;
+- A instrução para inserir dados é a INSERT INTO;
+- Devemos passar a tabela, colunas e valores;
+```php
+<?php
+$host = "localhost";
+$user = "root";
+$pass = "2wedf";
+$db = "cursophp";
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+$table = "itens";
+$nome = "Xícara";
+$descricao = "Xícara de porcelana chinesa do século XIX";
+
+$sql = "INSERT INTO $table (nome, descricao) VALUES ('$nome', '$descricao')";
+
+$conn->query($sql);
+$conn->close()
+```
+
+## Selecionando dados com mysqli
+- Para resgatar dados com o mysqli vamos utilizar a mesma query do SQL puro e novamente o método query;
+- A instrução para inserir dados é a SELECT;
+- Vamos inserir o método query em uma variável, que é onde receberemos os resultados;
+- Com o método fetch_assoc, transformamos os resultados em um array;
+
+```php
+<?php
+$host = "localhost";
+$user = "root";
+$pass = "2wedf";
+$db = "cursophp";
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+$sql = "SELECT * FROM itens";
+$result = $conn->query($sql);
+$conn->close()
+
+//UM RESULTADO
+$item = $result->fetch_assoc
+
+//TODOS OS RESULTADOS
+$itens = $result->fetch_all()
+
+print_r($itens)
+```
+
+## Prepared statements
+- Prepared statements é quando criamos uma query com placeholders em vez dos valores reais;
+- Aumentando a segurança e a performance da requisição;
+- Neste caso o fluxo muda um pouco, vamos utilizar o método prepare para preparar a query;
+- O bind_param para resgatar os parâmetros, e o execute para rodar a query;
+
+## Inserindo dados com prepared statements
+- Para inserir dados com prepared statements vamos seguir a ideia do tópico anterior;
+- prepare => bind_param => execute;
+- Como teremos uma variável para guardar estes três passos, também devemos fechar a conexão desta variável;
+- Ela é comumente chamada de statement; (declaração)
+- Lembre-se de fechar a conexão;
+
+```php
+<?php
+$host = "localhost";
+$user = "root";
+$pass = "2wedf";
+$db = "cursophp";
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+$nome "suporte de microfone" ;
+$descricao = "O suporte é novo e foi feito na China";
+
+$stmt = $conn->prepare("INSERT INTO itens (nome, descricao) VALUES (?, ?)");
+$stmt->bind_param("ss", $nome, $descricao); //s = string, i = integer, d = double
+$stmt->execute()
+```
+
+## Selecionando dados com prepared statements
+- Para selecionar dados com prepared statements devemos resgatar os dados com o método fetch_all;
+- A sequência será: prepare => bind_param => execute => get_result => fetch_all;
+- E depois devemos fechar a conexão;
+
+```php
+<?php
+$host = "localhost";
+$user = "root";
+$pass = "2wedf";
+$db = "cursophp";
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+$id = 4;
+$stmt = $conn->prepare("SELECT * FROM itens WHERE id > ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+
+$result = $stmt->get_result();
+$data = $result->fetch_all() ;
+$stmt->close();
+
+print_r($data);
+```
+
+## Resgatando apenas uma linha
+- Para os selects que precisamos de apenas um dado retornado, podemos utilizar o fetch_row;
+- Este método pode ser inserido depois de obter o resultado, ou seja, após get_result;
+```php
+<?php 
+$host = "localhost";
+$user = "root";
+$pass = "2wedf";
+$db = "cursophp";
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+$id = 4;
+$stmt = $conn->prepare("SELECT * FROM itens WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+
+$result = $stmt->get_result();
+$data = $result->fetch_row() ;
+$stmt->close();
+
+print_r($data);
+```
+
+## Atualizando dados com prepared statement
+- Para atualizar dados vamos seguir os mesmos passos de INSERT e SELECT;
+- Na hora de inserir o SET para atualizar os campos, vamos inserir os prepared statements;
+- Sequência: prepare => bind_param => execute;
+```php
+<?php 
+$host = "localhost";
+$user = "root";
+$pass = "2wedf";
+$db = "cursophp";
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+$id = 4;
+$stmt = $conn->prepare("UPDATE itens SET nome=?, descricao=? WHERE id=?");
+
+$nome = "sofá";
+$descricao = "sofá de madeira de demolição";
+$stmt->bind_param("ssi", $nome, $descricao, $id);
+$stmt->execute();
+$stmt->close();
+
+print_r($data);
+```
+
+## Deletando dados com prepared statements
+- Para atualizar dados vamos seguir os mesmos passos de INSERT e SELECT;
+- Na hora de inserir o WHERE para remover os registros, vamos inserir os prepared statements;
+- Sequência: prepare => bind_param => execute;
+- Lembrando que DELETE sem WHERE, causa a remoção de todos os registros;
+
+```php
+<?php 
+$host = "localhost";
+$user = "root";
+$pass = "2wedf";
+$db = "cursophp";
+
+$conn = new mysqli($host, $user, $pass, $db);
+
+$id = 4;
+$stmt = $conn->prepare("DELETE FROM itens WHERE id=?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$conn->close();
+```
+
+# Habilitando a PDO
+- Antes de começar a de fato utilizar a PDO, é necessário checar se a lib está habilitada;
+- Vamos checar no php.ini por duas linhas, e descomentar caso estejam: php_pdo php_pdo_mysql
+
+## Conexão ao banco de dados com PDO
+- A conexão com é um pouco diferente do mysqli, PDO mas vamos informar basicamente os mesmos parâmetros;
+- Que são: banco de dados, host, nome do banco, usuário e senha;
+- Exemplo: $conn = new PDO("mysql:host=localhost;dbname=teste", $user, $pass);
+```php
+<?php
+$host = "localhost";
+$db = "cursophp";
+$user = "root";
+$pass = "";
+
+$conn = new PDO("mysql:host=$host;dbname=$db, $user, $pass");
+```
+
+## Inserindo dados com PDO
+- Em PDO vamos utilizar uma abordagem parecida com o mysqli;
+- Utilizaremos o método prepare para realizar a query com prepared statements;
+- Depois bind_param para estabelecer os valores dos parâmetros;
+- Por fim execute fará a execução da query;
+$stmt = $con->prepare("INSERT INTO x(a, b) VALUES(?,?)")
+
+```php
+<?php
+$host = "localhost";
+$db = "cursophp";
+$user = "root";
+$pass = "";
+
+$conn = new PDO("mysql:host=$host;dbname=$db, $user, $pass");
+
+$stmt = $conn->prepare("INSERT INTO itens (nome, descricao) VALUES (:nome, :descricao)");
+
+$nome = "Suporte de monitor";
+$descricao = "Suporte novo e na caixa";
+
+$stmt->bindParam(":nome", $nome) ;
+$stmt->bindParam(":descricao",  $descricao) ;
+
+$stmt->execute();
+```
+
+## Atualizando dados com PDO
+- Para atualizar a abordagem também é parecida;
+- Vamos seguir com a sequência: prepare => bind_param => execute
+- E então a query persistirá no banco: $stmt = $con->prepare("UPDATE x SET a=?, b=? WHERE c=?")
+
+```php
+<?php
+$host = "localhost";
+$db = "cursophp";
+$user = "root";
+$pass = "";
+
+$conn = new PDO("mysql:host=$host;dbname=$db, $user, $pass");
+
+$id = 5;
+$nome = "Teclado Microsoft";
+$descricao = "Teclado novo e na caixa";
+
+$stmt = $conn->prepare("UPDATE itens SET nome=:nome, descricao=:descricao WHERE id=:id");
+$stmt->bindParam(":id", $id);
+$stmt->bindParam(":nome", $nome);
+$stmt->bindParam(":descricao", $descricao);
+
+$stmt->execute();
+```
+
+## Selecionando dados com o PDO
+- Para selecionar dados a abordagem também é parecida com mysqli;
+- Vamoa seguir com a sequência: prepare => bind_param => execute
+- Porém, para o resgate dos dados temos dois métodos:
+- fetch: recebe apenas a primeira ocorrência;
+- fetchAll: recebe todos os dados;
+
+```php
+<?php
+$host = "localhost";
+$db = "cursophp";
+$user = "root";
+$pass = "";
+
+$conn = new PDO("mysql:host=$host;dbname=$db, $user, $pass");
+
+$id = 5;
+
+$stmt = $conn->prepare("SELECT * FROM itens WHERE id > :id ");
+
+$stmt->bindParam(":id", $id);
+$stmt->execute();
+
+$data = $stmt->fetch(PDO::FETCH_ASSOC);
+print_r($data);
+
+$itens = $stmt->fetchAll(PDO::FETCH_ASSOC);
+print_r($itens);
+```
 
 
 
